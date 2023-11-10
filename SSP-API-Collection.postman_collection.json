@@ -1,0 +1,66 @@
+{
+	"info": {
+		"_postman_id": "41c126c0-89e9-406b-b192-a3e26276d2cd",
+		"name": "SSP-API-Collection",
+		"description": "Postman collection documentation of the SSP assignment & the designated API endpoints which were used for the application.\n\nNew job creation endpoint is used to start a new job which will do the following background tasks:\n\n- Fetching weather data and an image from external APIs\n- Writing text to each image with different weather data\n- Creating SAS urls for each image\n    \n\nThis endpoint will return back a link to the next endpoint (Get status by job id)\n\nGet status by job id endpoint is used to retrieve the following:\n\n- A job status if the job is still active or is failed as a response.\n- A completed job which delivers all SAS urls as a response.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31037114"
+	},
+	"item": [
+		{
+			"name": "Create new job",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUri}}/InitJobFunction?{{initJobPostFix}}",
+					"host": [
+						"{{baseUri}}"
+					],
+					"path": [
+						"InitJobFunction"
+					],
+					"query": [
+						{
+							"key": "{{initJobPostFix}}",
+							"value": null
+						}
+					]
+				},
+				"description": "Endpoint for start a job in the background. Returns back a url to the get status by job id endpoint."
+			},
+			"response": []
+		},
+		{
+			"name": "Get job status by job id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUri}}/GetResultFunction/:jobId?{{getResultPostFix}}",
+					"host": [
+						"{{baseUri}}"
+					],
+					"path": [
+						"GetResultFunction",
+						":jobId"
+					],
+					"query": [
+						{
+							"key": "{{getResultPostFix}}",
+							"value": null
+						}
+					],
+					"variable": [
+						{
+							"key": "jobId",
+							"value": "552198cf-4185-436f-a39c-ea356760c286"
+						}
+					]
+				},
+				"description": "Endpoint for retrieving the status of the job, if it has not yet been completed OR a list of SAS url links to the images of each weather station with its data on it."
+			},
+			"response": []
+		}
+	]
+}
